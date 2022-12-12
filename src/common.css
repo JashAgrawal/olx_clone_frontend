@@ -1,3 +1,6 @@
 .dropdown-item {
   white-space: break-spaces;
 }
+.hovering:focus {
+  box-shadow: 0 0 8pt #000000;
+}

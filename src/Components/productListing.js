@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Card from "../Components/card";
 function ProductListing(props) {
   return (
@@ -20,22 +20,33 @@ function ProductListing(props) {
 
       <div
         style={{
-          justifyContent: "center",
+          justifyContent: "start",
           display: "flex",
+          marginLeft: "2rem",
         }}
       >
         <div
-          class="d-flex flex-wrap"
+          className="d-flex flex-wrap"
           style={{ maxWidth: "90vw", margin: "2rem" }}
         >
-          {props?.products.map(() => (
-            <Card
-              price={1000}
-              featured={true}
-              name="Iphone 14 New"
-              location="south bombay"
-            />
-          ))}
+          {props?.products.length !== 0 ? (
+            <>
+              {props?.products.map((product) => (
+                <Card
+                  sold={product.isSold}
+                  id={product._id}
+                  price={product?.price}
+                  postings={props?.postings}
+                  featured={props?.featured}
+                  name={product?.name}
+                  location={product?.location}
+                  images={product?.images[0]}
+                />
+              ))}
+            </>
+          ) : (
+            "No Items To Display Here"
+          )}
         </div>
       </div>
     </>
