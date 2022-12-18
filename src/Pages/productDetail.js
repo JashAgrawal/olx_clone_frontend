@@ -138,8 +138,8 @@ const ProductDetail = (props) => {
               ₹ {product.price}
             </div>
             <div style={{ display: "flex", justifyContent: "space-around" }}>
-              <AiOutlineShareAlt size={20} />
-              <AiOutlineHeart size={20} />
+              <AiOutlineShareAlt className="me-2 pointer" size={20} />
+              <AiOutlineHeart className="ms-2 pointer" size={20} />
             </div>
           </div>
           <div style={{ color: "gray", fontSize: "24px", marginBottom: "2%" }}>
@@ -190,7 +190,13 @@ const ProductDetail = (props) => {
           <Modal
             text={
               <>
-                Buy <GiShoppingBag />
+                {userData.id !== product.sellerId ? (
+                  <>
+                    Buy <GiShoppingBag />
+                  </>
+                ) : (
+                  <>{product.isSold ? "SOLD" : "UNSOLD"}</>
+                )}
               </>
             }
             title={"You sure you want to buy ?"}

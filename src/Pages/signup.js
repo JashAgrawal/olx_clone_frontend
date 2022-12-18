@@ -4,6 +4,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { setAuthData } from "../redux/slices/auth";
 import { useSelector, useDispatch } from "react-redux";
+import constants from "../utils/constants";
 
 function SignUp() {
   const [name, setname] = useState("");
@@ -18,7 +19,7 @@ function SignUp() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const res = await axios.post("http://localhost:3030/Auth/signup", {
+      const res = await axios.post(`${constants.baseUrl}/Auth/signup`, {
         name,
         email,
         password,

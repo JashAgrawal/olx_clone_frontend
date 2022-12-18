@@ -11,10 +11,10 @@ import SignUp from "../Pages/signup";
 import Loading from "../Pages/loading";
 import { useSelector } from "react-redux";
 import ProductDetail from "../Pages/productDetail";
-
+import RequireAuth from "./routeGuard";
+import NotFound from "../Pages/NotFound";
 function App() {
   const [search, setSearch] = useState("");
-  const [userid, setUserId] = useState("");
 
   const userData = useSelector((state) => state.auth);
   const { loading } = useSelector((state) => state.loading);
@@ -36,13 +36,12 @@ function App() {
             ></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/signup" element={<SignUp />}></Route>
-            {userData && userData.id !== "" ? (
-              <>
-                <Route path="/add-products" element={<AddProduct />}></Route>
-                <Route path="/my-ads" element={<MyPostings />}></Route>
-                <Route path="/bought-items" element={<MyPurchases />}></Route>
-              </>
-            ) : null}
+            <Route element={<RequireAuth />}>
+              <Route path="/add-products" element={<AddProduct />}></Route>
+              <Route path="/my-ads" element={<MyPostings />}></Route>
+              <Route path="/bought-items" element={<MyPurchases />}></Route>
+            </Route>
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </>
       ) : (

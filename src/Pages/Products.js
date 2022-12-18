@@ -1,10 +1,10 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import prods from "../assests/prods.jpg";
 import ProductListing from "../Components/productListing";
 import Constants from "../utils/constants";
 import { setLoading } from "../redux/slices/loading";
 import { useSelector, useDispatch } from "react-redux";
+import axios from "../utils/axiosConfig";
 
 function Products(props) {
   const [products, setproducts] = useState([]);
@@ -15,7 +15,7 @@ function Products(props) {
 
   useEffect(() => {
     dispatch(setLoading(true));
-    const userId = userData.id || "6393c08303be4ad5b2a3f5de";
+    const userId = userData.id;
     const res = axios
       .get(`${Constants.baseUrl}/Product/unsold_products/${userId}`)
       .then((res) => {

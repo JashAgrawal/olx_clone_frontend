@@ -1,13 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import { BsHeart, BsHeartFill, BsZoomIn } from "react-icons/bs";
 import { AiFillDelete } from "react-icons/ai";
 import sold from "../assests/sold.png";
 import prod from "../assests/prod.png";
 import Constants from "../utils/constants";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
 // import { connect } from "react-redux";
 
 const Card = (props) => {
+  const userData = useSelector((state) => state.auth);
+  const [sold, setSold] = useState(props.sold);
+  const handleSell = (e, id) => {
+    e.preventDefault();
+    axios
+      .post(`${Constants.baseUrl}/Product/sell_product/${id}`, {
+        buyerId: userData.id,
+        sold: !props.isSold,
+      })
+      .then((res) => {
+        // setProduct(res.data?.products);
+        setSold(!sold);
+        console.log(res.data);
+        alert("Item status changed succesfully");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Changing error");
+      });
+  };
+  const handleDelete = async (e, id) => {
+    try {
+      e.preventDefault();
+      if (window.confirm("Are you sure u want to delete this item")) {
+        const res = await axios.post(
+          `${Constants.baseUrl}/Product/delete_product/${id}`
+        );
+        console.log(res.data);
+        alert("Item deleted changed succesfully");
+        window.location.reload();
+      }
+    } catch (err) {
+      console.log(err);
+      alert("Deleting error");
+    }
+  };
   return (
     <Link
       to={`/product-details/${props.id}`}
@@ -35,14 +73,18 @@ const Card = (props) => {
           >
             {!props.postings ? (
               <>
-                {props.wishlisted ? (
+                {!props.wishlisted ? (
                   <BsHeart />
                 ) : (
                   <BsHeartFill color="#ff4e45" />
                 )}
               </>
             ) : (
-              <AiFillDelete />
+              <AiFillDelete
+                onClick={(e) => {
+                  handleDelete(e, props.id);
+                }}
+              />
             )}
           </div>
         </div>
@@ -82,14 +124,16 @@ const Card = (props) => {
               >
                 ₹ {props.price}
               </strong>
-              <button
-                to="/add-products"
-                className={`ms-auto btn btn-light border border-4 border-${
-                  props.sold ? "Danger" : "success"
-                } rounded-pill`}
-              >
-                {props.sold ? "SOLD" : "UNSOLD"}
-              </button>
+              {props?.postings && (
+                <button
+                  onClick={(e) => handleSell(e, props?.id)}
+                  className={`ms-auto btn btn-light py-1 mt-1 me-1 border border-4 fw-semibold border-${
+                    sold ? "danger" : "success"
+                  } rounded-pill`}
+                >
+                  {sold ? "SOLD" : "UNSOLD"}
+                </button>
+              )}
             </h5>
           </div>
           <p className="card-text" style={{ marginBottom: "0.4rem" }}>

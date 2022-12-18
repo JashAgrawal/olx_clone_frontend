@@ -3,6 +3,7 @@ const initialState = {
   id: "",
   name: "",
   token: "",
+  loggedIn: false,
 };
 export const authSlice = createSlice({
   name: "auth",
@@ -13,11 +14,13 @@ export const authSlice = createSlice({
       state.id = id;
       state.token = token;
       state.name = name;
+      state.loggedIn = true;
     },
     logOut: (state) => {
       state.id = "";
       state.token = "";
       state.name = "";
+      state.loggedIn = false;
     },
   },
 });

@@ -15,6 +15,7 @@ function Modal(props) {
           padding: "2% 0",
           marginTop: "2%",
           whiteSpace: "break-spaces",
+          marginTop: "1rem",
         }}
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"

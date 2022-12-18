@@ -4,3 +4,7 @@
 .hovering:focus {
   box-shadow: 0 0 8pt #000000;
 }
+
+.pointer {
+  cursor: pointer;
+}

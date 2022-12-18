@@ -4,7 +4,8 @@ import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { setAuthData } from "../redux/slices/auth";
 import { useSelector, useDispatch } from "react-redux";
-
+import constants from "../utils/constants";
+import { setAuthToken } from "../utils/axiosConfig";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,19 +18,21 @@ function Login() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const res = await axios.post("http://localhost:3030/Auth/login", {
+      const res = await axios.post(`${constants.baseUrl}/Auth/login`, {
         email,
         password,
       });
       const userData = res.data?.data;
-
+      const token = userData.userToken;
       dispatch(
         setAuthData({
           id: userData.userId,
           name: userData.name,
-          token: userData.usertoken,
+          token: token,
         })
       );
+      setAuthToken(token);
+      document.cookie = token;
       history("/", { replace: true });
     } catch (err) {
       alert(err);

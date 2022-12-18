@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import olx from "../assests/olx.svg";
 import { AiOutlineBell } from "react-icons/ai";
 import { FiMessageSquare, FiSearch, FiLogOut, FiPackage } from "react-icons/fi";
 import { FaUserAlt, FaPlus } from "react-icons/fa";
 import { BsFilePost } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setAuthData, logOut } from "../redux/slices/auth";
+import { logOut } from "../redux/slices/auth";
 function Navbar(props) {
   const userData = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -47,7 +46,7 @@ function Navbar(props) {
             />
           </div>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            {userData && userData?.id !== "" ? (
+            {userData && userData?.loggedIn ? (
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item mx-2">
                   <Link
@@ -97,7 +96,7 @@ function Navbar(props) {
                         to="/"
                         onClick={() => {
                           dispatch(logOut());
-                          window.location.reload();
+                          // window.location.reload();
                         }}
                       >
                         <FiLogOut /> {"  "} Logout
