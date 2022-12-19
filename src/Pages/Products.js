@@ -17,7 +17,7 @@ function Products(props) {
     // dispatch(setLoading(true));
     const userId = userData.id;
     const res = fetchClient
-      .get(`${Constants.baseUrl}/Product/unsold_products`, { id: userId })
+      .post(`${Constants.baseUrl}/Product/unsold_products`, { id: userId })
       .then((res) => {
         setproducts(res.data?.products);
         setFilterdProducts(res.data?.products);
