@@ -5,6 +5,7 @@ import ProductListing from "../Components/productListing";
 import Constants from "../utils/constants";
 import { setLoading } from "../redux/slices/loading";
 import { useSelector, useDispatch } from "react-redux";
+import fetchClient from "../utils/fetchClient";
 function MyPurchases() {
   const userData = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ function MyPurchases() {
   useEffect(() => {
     dispatch(setLoading(true));
     const userId = userData.id;
-    const res = axios
+    const res = fetchClient
       .get(`${Constants.baseUrl}/Product/userPurchased_products/${userId}`)
       .then((res) => {
         setproducts(res.data?.products);

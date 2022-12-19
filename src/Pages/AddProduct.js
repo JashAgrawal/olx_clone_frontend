@@ -4,6 +4,7 @@ import { BsFilePost } from "react-icons/bs";
 import axios from "axios";
 import Constants from "../utils/constants";
 import { useSelector, useDispatch } from "react-redux";
+import fetchClient from "../utils/fetchClient";
 function AddProduct() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -32,11 +33,10 @@ function AddProduct() {
       formData.append("name", title);
       formData.append("description", description);
       formData.append("price", price);
+      formData.append("images", files);
       formData.append("location", location);
       formData.append("sellerId", userId);
-      formData.append("images", files);
-
-      const res = await axios.post(
+      const res = await fetchClient.post(
         `${Constants.baseUrl}/Product/add_product`,
         formData,
         { headers: { "content-type": "multipart/form-data" } }
@@ -45,6 +45,7 @@ function AddProduct() {
       reset();
     } catch (err) {
       console.log(err);
+      alert("Error creating product");
     }
   };
   return (

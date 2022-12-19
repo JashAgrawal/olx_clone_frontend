@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import Constants from "../utils/constants";
 import Modal from "../Components/modal";
+import fetchClient from "../utils/fetchClient";
 const ProductDetail = (props) => {
   const userData = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const ProductDetail = (props) => {
   const history = useNavigate();
   useEffect(() => {
     dispatch(setLoading(true));
-    const res = axios
+    const res = fetchClient
       .get(`${Constants.baseUrl}/Product/get_product_by_id/${id}`)
       .then((res) => {
         setProduct(res.data?.products);
@@ -30,7 +31,7 @@ const ProductDetail = (props) => {
     dispatch(setLoading(false));
   }, []);
   const handleSell = () => {
-    axios
+    fetchClient
       .post(`${Constants.baseUrl}/Product/sell_product/${id}`, {
         buyerId: userData.id,
       })

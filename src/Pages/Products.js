@@ -4,8 +4,8 @@ import ProductListing from "../Components/productListing";
 import Constants from "../utils/constants";
 import { setLoading } from "../redux/slices/loading";
 import { useSelector, useDispatch } from "react-redux";
-import axios from "../utils/axiosConfig";
-
+import axios from "axios";
+import fetchClient from "../utils/fetchClient";
 function Products(props) {
   const [products, setproducts] = useState([]);
   const [filteredProducts, setFilterdProducts] = useState([]);
@@ -14,10 +14,10 @@ function Products(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setLoading(true));
+    // dispatch(setLoading(true));
     const userId = userData.id;
-    const res = axios
-      .get(`${Constants.baseUrl}/Product/unsold_products/${userId}`)
+    const res = fetchClient
+      .get(`${Constants.baseUrl}/Product/unsold_products`, { id: userId })
       .then((res) => {
         setproducts(res.data?.products);
         setFilterdProducts(res.data?.products);
@@ -26,16 +26,16 @@ function Products(props) {
         alert("Products Fetching Error");
         console.log(err);
       });
-    dispatch(setLoading(false));
-  }, []);
+    // dispatch(setLoading(false));
+  }, [userData.id]);
   useEffect(() => {
-    dispatch(setLoading(true));
+    // dispatch(setLoading(true));
     const productss = products.filter((product) =>
       product?.name.includes(props.search)
     );
     setFilterdProducts(productss);
-    dispatch(setLoading(false));
-  }, [props.search]);
+    // dispatch(setLoading(false));
+  }, [props.search, products]);
   return (
     <>
       <div

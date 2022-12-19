@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { setAuthData } from "../redux/slices/auth";
 import { useSelector, useDispatch } from "react-redux";
 import constants from "../utils/constants";
-import { setAuthToken } from "../utils/axiosConfig";
+import fetchClient from "../utils/fetchClient";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,7 +18,7 @@ function Login() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const res = await axios.post(`${constants.baseUrl}/Auth/login`, {
+      const res = await fetchClient.post(`${constants.baseUrl}/Auth/login`, {
         email,
         password,
       });
@@ -31,7 +31,6 @@ function Login() {
           token: token,
         })
       );
-      setAuthToken(token);
       document.cookie = token;
       history("/", { replace: true });
     } catch (err) {

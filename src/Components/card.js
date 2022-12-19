@@ -6,7 +6,8 @@ import prod from "../assests/prod.png";
 import Constants from "../utils/constants";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import fetchClient from "../utils/fetchClient";
 // import { connect } from "react-redux";
 
 const Card = (props) => {
@@ -14,7 +15,7 @@ const Card = (props) => {
   const [sold, setSold] = useState(props.sold);
   const handleSell = (e, id) => {
     e.preventDefault();
-    axios
+    fetchClient
       .post(`${Constants.baseUrl}/Product/sell_product/${id}`, {
         buyerId: userData.id,
         sold: !props.isSold,
@@ -34,11 +35,11 @@ const Card = (props) => {
     try {
       e.preventDefault();
       if (window.confirm("Are you sure u want to delete this item")) {
-        const res = await axios.post(
+        const res = await fetchClient.post(
           `${Constants.baseUrl}/Product/delete_product/${id}`
         );
         console.log(res.data);
-        alert("Item deleted changed succesfully");
+        alert("Item deleted succesfully");
         window.location.reload();
       }
     } catch (err) {

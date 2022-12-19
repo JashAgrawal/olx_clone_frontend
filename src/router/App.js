@@ -25,28 +25,28 @@ function App() {
   };
   return (
     <div className="App">
-      {!loading ? (
-        <>
-          <Navbar search={search} setSearch={handleSearchChange} />
-          <Routes>
-            <Route path="/" element={<Products search={search} />}></Route>
-            <Route
-              path="/product-details/:id"
-              element={<ProductDetail />}
-            ></Route>
-            <Route path="/login" element={<Login />}></Route>
-            <Route path="/signup" element={<SignUp />}></Route>
-            <Route element={<RequireAuth />}>
-              <Route path="/add-products" element={<AddProduct />}></Route>
-              <Route path="/my-ads" element={<MyPostings />}></Route>
-              <Route path="/bought-items" element={<MyPurchases />}></Route>
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </>
-      ) : (
+      {/* {!loading ? ( */}
+      <>
+        <Navbar search={search} setSearch={handleSearchChange} />
+        <Routes>
+          <Route path="/" element={<Products search={search} />}></Route>
+          <Route
+            path="/product-details/:id"
+            element={<ProductDetail />}
+          ></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/signup" element={<SignUp />}></Route>
+          <Route element={<RequireAuth />}>
+            <Route path="/add-products" element={<AddProduct />}></Route>
+            <Route path="/my-ads" element={<MyPostings />}></Route>
+            <Route path="/bought-items" element={<MyPurchases />}></Route>
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </>
+      {/* ) : (
         <Loading />
-      )}
+      )} */}
     </div>
   );
 }

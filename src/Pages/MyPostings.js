@@ -1,10 +1,10 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import prods from "../assests/prods.jpg";
 import ProductListing from "../Components/productListing";
 import Constants from "../utils/constants";
 import { setLoading } from "../redux/slices/loading";
 import { useSelector, useDispatch } from "react-redux";
+import fetchClient from "../utils/fetchClient";
+import axios from "axios";
 function MyPostings() {
   const userData = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ function MyPostings() {
   useEffect(() => {
     dispatch(setLoading(true));
     const userId = userData.id;
-    const res = axios
+    const res = fetchClient
       .get(`${Constants.baseUrl}/Product/userPosted_products/${userId}`)
       .then((res) => {
         setproducts(res.data?.products);
