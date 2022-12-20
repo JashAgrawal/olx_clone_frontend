@@ -12,6 +12,9 @@ function RequireAuth() {
   if (!decodedToken?.id || isExpire) {
     return <Navigate to="/login" state={{ from: location }} />;
   }
+  // if (decodedToken.id) {
+  //   return <Navigate to="/" state={{ from: location }} />;
+  // }
 
   return <Outlet />;
 }

@@ -8,3 +8,11 @@
 .pointer {
   cursor: pointer;
 }
+@media only screen and (max-width: 768px) {
+  .detail-direction {
+    flex-direction: column;
+  }
+  .card-detail {
+    width: 100vw !important;
+  }
+}

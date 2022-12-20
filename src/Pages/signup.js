@@ -35,7 +35,7 @@ function SignUp() {
       );
       history("/", { replace: true });
     } catch (err) {
-      alert(err);
+      alert(err?.response?.data?.message?.message);
       console.log(err);
     }
   };
@@ -43,7 +43,7 @@ function SignUp() {
     <div className="container d-flex justify-content-center ">
       <div
         className="m-5 p-5 border border-4 border-dark rounded"
-        style={{ width: "50%" }}
+        style={{ width: "50vw" }}
       >
         <form onSubmit={(e) => handleSubmit(e)}>
           <div class="mb-3">

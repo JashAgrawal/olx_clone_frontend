@@ -54,6 +54,7 @@ const ProductDetail = (props) => {
         padding: "2rem",
         justifyContent: "space-between",
       }}
+      className="detail-direction"
     >
       <div
         style={{
@@ -89,7 +90,7 @@ const ProductDetail = (props) => {
           >
             <span
               class="carousel-control-prev-icon rounded-circle"
-              style={{ backgroundColor: "black" }}
+              style={{ backgroundColor: "dimgrey" }}
               aria-hidden="true"
             ></span>
             <span class="visually-hidden">Previous</span>
@@ -101,7 +102,7 @@ const ProductDetail = (props) => {
             data-bs-slide="next"
           >
             <span
-              style={{ backgroundColor: "black" }}
+              style={{ backgroundColor: "dimgrey" }}
               class="carousel-control-next-icon rounded-circle"
               aria-hidden="true"
             ></span>
@@ -123,6 +124,7 @@ const ProductDetail = (props) => {
           flexDirection: "column",
           width: "25vw",
         }}
+        className="container-fluid card-detail"
       >
         <div
           style={{

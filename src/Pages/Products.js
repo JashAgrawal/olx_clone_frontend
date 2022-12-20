@@ -14,7 +14,7 @@ function Products(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // dispatch(setLoading(true));
+    dispatch(setLoading(true));
     const userId = userData.id;
     const res = fetchClient
       .post(`${Constants.baseUrl}/Product/unsold_products`, { id: userId })
@@ -26,15 +26,15 @@ function Products(props) {
         alert("Products Fetching Error");
         console.log(err);
       });
-    // dispatch(setLoading(false));
+    dispatch(setLoading(false));
   }, [userData.id]);
   useEffect(() => {
-    // dispatch(setLoading(true));
+    dispatch(setLoading(true));
     const productss = products.filter((product) =>
       product?.name.includes(props.search)
     );
     setFilterdProducts(productss);
-    // dispatch(setLoading(false));
+    dispatch(setLoading(false));
   }, [props.search, products]);
   return (
     <>
